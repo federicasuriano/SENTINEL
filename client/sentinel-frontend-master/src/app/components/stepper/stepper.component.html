@@ -1,0 +1,2012 @@
+<form [formGroup]="formGroup">
+
+    <mat-stepper formArrayName="form" class="example-stepper" [orientation]="(stepperOrientation | async)!">
+
+        <mat-step [formGroupName]="i" *ngFor="let customerGroup of form.controls; let i = index">
+
+
+            <!-- Define Stepper Labels -->
+            <ng-template [ngIf]="(i === 0) && (numDiffForms !== numSameForms) && (numSameForms - numDiffForms === 1)">
+                <ng-template matStepLabel>Individu #{{numSameForms - numDiffForms}}</ng-template>
+            </ng-template>
+            <label *ngIf="(i === 0) && (numDiffForms !== numSameForms) && (numSameForms - numDiffForms !== 1)"
+                                            class="text-warning">LET OP: je vult nu in voor het eerste deel van de gehele groep en niet voor de individuen. Deze melding zal worden gekopieerd naar de individuele meldingen, je kunt daar dan kiezen wat er anders is ten opzichte van de hele groep.</label>
+            <ng-template [ngIf]="(i === 0) && (numDiffForms !== numSameForms) && (numSameForms - numDiffForms !== 1)">
+                <ng-template matStepLabel>Groep #{{numSameForms - numDiffForms}} Personen</ng-template>
+            </ng-template>
+            <ng-template [ngIf]="(i === 0) && (numDiffForms === numSameForms)">
+                <ng-template matStepLabel>Individu #{{numSameForms - numDiffForms + 1}}</ng-template>
+            </ng-template>
+            <ng-template [ngIf]="(i !== 0) && (numDiffForms === numSameForms)">
+                <ng-template matStepLabel>Individu #{{numSameForms - numDiffForms + 1 + i}}</ng-template>
+            </ng-template>
+            <ng-template matStepLabel>Individu #{{numSameForms - numDiffForms + i}}</ng-template>
+
+            <div class="container mt-3">
+                <div class="row justify-content-center">
+
+                    <div class="col-lg-12 mx-0 px-0">
+
+                        <div id="qbox-container">
+
+                            <div class="row">
+                                <div class="col">
+                                    <p class="textabove">Je geeft aan dat je een signaal wilt inbrengen van
+                                        (mogelijk) slachtofferschap van arbeidsuitbuiting. Vink de indicatoren aan die
+                                        van toepassing zijn.</p>
+                                </div>
+                            </div>
+
+                            <!-- Report Tab -->
+                            <ul ngbNav #nav="ngbNav" [(activeId)]="active" [destroyOnHide]="false" class="nav-tabs">
+
+                                <!-- Housing -->
+                                <li [ngbNavItem]="1">
+                                    <a ngbNavLink><i class="fas fa-home"></i> Huisvesting</a>
+                                    <ng-template ngbNavContent>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_ho_9" id="q_ho_9" formControlName="q_ho_9" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_9">
+                                                                Anderzijds slecht gehuisvest - Brandveiligheid niet op orde  (overtreding bouwbesluit)
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <textarea class="form-control" id="anderzijdsTA" name="anderzijdsTA" rows="2" maxlength="1000" formControlName="anderzijdsTA"></textarea>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_ho_5" id="q_ho_5" formControlName="q_ho_5" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_5">
+                                                                Geen inschrijving Basis Register Personen (BRP) - uitleg
+                                                                achtergehouden
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_7 duplicate" type="checkbox"
+                                                                value="q_ho_7" id="q_ho_7" formControlName="q_ho_7" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_7">
+                                                                Huisvesting direct gekoppeld aan werkzaamheden. Door het
+                                                                verliezen van de werkzaamheden, verliest deze persoon
+                                                                ook zijn/haar huisvesting.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_1 duplicate" type="checkbox"
+                                                                value="q_ho_1" id="q_ho_1" formControlName="q_ho_1" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_1">
+                                                                Huur afgetrokken van het loon zonder SNF keurmerk
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_ho_15" id="q_ho_15" formControlName="q_ho_15" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_15">
+                                                                Illegale bewoning van (bij)gebouw (overtreding bestemmingsplan)
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_6 duplicate" type="checkbox"
+                                                                value="q_ho_6" id="q_ho_6" formControlName="q_ho_6" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_6">
+                                                                In bedrijfspand van werkgever verblijven
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_ho_10" id="q_ho_10"
+                                                                formControlName="q_ho_10" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_10">
+                                                                Kleine woonruimte moeten delen met (onbekende) collega's.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_2 duplicate" type="checkbox"
+                                                                value="q_ho_2" id="q_ho_2" formControlName="q_ho_2" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_2">
+                                                                Kosten door werkgever verleende diensten (huur, vervoer,
+                                                                etc.) onevenredig hoog
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_3 duplicate" type="checkbox"
+                                                                value="q_ho_3" id="q_ho_3" formControlName="q_ho_3" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_3">
+                                                                Met valse beloften naar Nederland gehaald
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_11 duplicate" type="checkbox"
+                                                                value="q_ho_11" id="q_ho_11"
+                                                                formControlName="q_ho_11" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_11">
+                                                                Niet op de hoogte van verblijfsadres
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_12 duplicate" type="checkbox"
+                                                                value="q_ho_12" id="q_ho_12"
+                                                                formControlName="q_ho_12" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_12">
+                                                                Onder druk gezet worden op andere manieren door
+                                                                werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_4 duplicate" type="checkbox"
+                                                                value="q_ho_4" id="q_ho_4" formControlName="q_ho_4" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_4">
+                                                                Op privéadres van werkgever verblijven
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_13 duplicate" type="checkbox"
+                                                                value="q_ho_13" id="q_ho_13"
+                                                                formControlName="q_ho_13" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_13">
+                                                                Paspoort ingenomen als borg
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_8 duplicate" type="checkbox"
+                                                                value="q_ho_8" id="q_ho_8" formControlName="q_ho_8" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_8">
+                                                                Vergoeding moeten betalen voor gebruikt vervoer
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_ho_14" id="q_ho_14"
+                                                                formControlName="q_ho_14" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_ho_14">
+                                                                Maximale aantal huishoudens (volgens
+                                                                bestemmingsplan) wordt overschreden
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2 ms-2">
+                                                    <div class="col-9">
+                                                        <label class="form-label">Wat is het maximale aantal
+                                                            huishoudens volgens het bestemmingsplan?</label>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <input type="number" class="form-control input-sm"
+                                                            id="maxHouseholds" name="maxHouseholds"
+                                                            formControlName="maxHouseholds">
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2 ms-2">
+                                                    <div class="col-9">
+                                                        <label class="form-label">Hoeveel mensen wonen er in het
+                                                            huis?</label>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <input type="number" class="form-control input-sm"
+                                                            id="numPeople" name="numPeople" formControlName="numPeople">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </li>
+
+                                <!-- Health -->
+                                <li [ngbNavItem]="2">
+                                    <a ngbNavLink><i class="fa-solid fa-suitcase-medical"></i> Gezondheid</a>
+                                    <ng-template ngbNavContent>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_7 duplicate" type="checkbox"
+                                                                value="q_he_7" id="q_he_7" formControlName="q_he_7" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_he_7">
+                                                                Angstig voor werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_2 duplicate" type="checkbox"
+                                                                value="q_he_2" id="q_he_2" formControlName="q_he_2" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_he_2">
+                                                                Bedreigd door werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_3 duplicate" type="checkbox"
+                                                                value="q_he_3" id="q_he_3" formControlName="q_he_3" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_he_3">
+                                                                Gedwongen tot arbeid
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_6 duplicate" type="checkbox"
+                                                                value="q_he_6" id="q_he_6" formControlName="q_he_6" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_he_6">
+                                                                Mishandeld door werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_5 duplicate" type="checkbox"
+                                                                value="q_he_5" id="q_he_5" formControlName="q_he_5" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_he_5">
+                                                                Niet anders kunnen (onttrekken) dan uitbuiting ondergaan
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_12 duplicate" type="checkbox"
+                                                                value="q_he_4" id="q_he_4" formControlName="q_he_4" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_he_4">
+                                                                Onder druk gezet worden op andere manieren door
+                                                                werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_13 duplicate" type="checkbox"
+                                                                value="q_he_8" id="q_he_8" formControlName="q_he_8" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_he_8">
+                                                                Paspoort ingenomen als borg
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_he_9" id="q_he_9" formControlName="q_he_9" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_he_9">
+                                                                Persoon heeft zorg nodig gehad (bedrijfsongeval of anderzijds fysieke zorg nodig) en bleek niet verzekerd te zijn zonder daarvan op de hoogte te zijn en wél te hebben betaald voor verzekering
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_1 duplicate" type="checkbox"
+                                                                value="q_he_1" id="q_he_1" formControlName="q_he_1" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_he_1">
+                                                                Persoon heeft geen zorgverzekering en is hiervan op de hoogte
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_he_11" id="q_he_11" formControlName="q_he_11" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_he_11">
+                                                                Woonsituatie zeer onhygiënisch (ongezonde leefomstandigheden zoals schimmel etc.)
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_he_10" id="q_he_10" formControlName="q_he_10" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_he_10">
+                                                                Zichtbaar fysiek letsel (bv gebroken arm)
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </li>
+
+                                <!-- Payment -->
+                                <li [ngbNavItem]="3">
+                                    <a ngbNavLink><i class="fa-solid fa-money-bill"></i> Betaling</a>
+                                    <ng-template ngbNavContent>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_15 duplicate" type="checkbox"
+                                                                value="q_pa_15" id="q_pa_15"
+                                                                formControlName="q_pa_15" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_15">
+                                                                Boete moeten betalen die niet in arbeidsovereenkomst
+                                                                staat
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_4 duplicate" type="checkbox"
+                                                                value="q_pa_4" id="q_pa_4" formControlName="q_pa_4" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_4">
+                                                                Contract alleen in NL en persoon spreekt geen NL
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_3 duplicate" type="checkbox"
+                                                                value="q_pa_3" id="q_pa_3" formControlName="q_pa_3" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_3">
+                                                                Geen contract ondertekend
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_6 duplicate" type="checkbox"
+                                                                value="q_pa_6" id="q_pa_6" formControlName="q_pa_6" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_6">
+                                                                Geen loonstrookje ontvangen
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_5 duplicate" type="checkbox"
+                                                                value="q_pa_5" id="q_pa_5" formControlName="q_pa_5" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_5">
+                                                                Geen vakantiegeld / vakantiedagen
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_1 duplicate" type="checkbox"
+                                                                value="q_pa_9" id="q_pa_9" formControlName="q_pa_9" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_9">
+                                                                Huur afgetrokken van het loon zonder SNF keurmerk
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_pa_16" id="q_pa_16"
+                                                                formControlName="q_pa_16" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_16">
+                                                                Kan contract niet laten zien
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_2 duplicate" type="checkbox"
+                                                                value="q_pa_10" id="q_pa_10"
+                                                                formControlName="q_pa_10" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_10">
+                                                                Kosten door werkgever verleende diensten (huur, vervoer,
+                                                                etc.) onevenredig hoog
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_pa_8" id="q_pa_8" formControlName="q_pa_8" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_8">
+                                                                Niet kunnen beschikken over eigen bankrekening
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_12 duplicate" type="checkbox"
+                                                                value="q_pa_12" id="q_pa_12"
+                                                                formControlName="q_pa_12" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_12">
+                                                                Onder druk gezet worden op andere manieren door
+                                                                werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_pa_1" id="q_pa_1" formControlName="q_pa_1" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_1">
+                                                                Overschrijding uitbetalingstermijn (>30 dgn)
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_13 duplicate" type="checkbox"
+                                                                value="q_pa_13" id="q_pa_13"
+                                                                formControlName="q_pa_13" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_13">
+                                                                Paspoort ingenomen als borg
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_7 duplicate" type="checkbox"
+                                                                value="q_pa_7" id="q_pa_7" formControlName="q_pa_7" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_7">
+                                                                Schuld bij werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_8 duplicate" type="checkbox"
+                                                                value="q_pa_14" id="q_pa_14"
+                                                                formControlName="q_pa_14" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_14">
+                                                                Vergoeding moeten betalen voor gebruikt vervoer
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_pa_2" id="q_pa_2" formControlName="q_pa_2" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_pa_2">
+                                                                Zwart betaald
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </li>
+
+                                <!-- Employer -->
+                                <li [ngbNavItem]="4">
+                                    <a ngbNavLink><i class="fa-solid fa-hammer"></i> Werkgever</a>
+                                    <ng-template ngbNavContent>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_em_25" id="q_em_25"
+                                                                formControlName="q_em_25" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_25">
+                                                                Anderzijds slecht gehuisvest - Onveilige / ongezonde/ gevaarlijke woonsituatie
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_7 duplicate" type="checkbox"
+                                                                value="q_em_20" id="q_em_20"
+                                                                formControlName="q_em_20" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_20">
+                                                                Angstig voor werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_2 duplicate" type="checkbox"
+                                                                value="q_em_14" id="q_em_14"
+                                                                formControlName="q_em_14" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_14">
+                                                                Bedreigd door werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_15 duplicate" type="checkbox"
+                                                                value="q_em_23" id="q_em_23"
+                                                                formControlName="q_em_23" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_23">
+                                                                Boete moeten betalen die niet in arbeidsovereenkomst
+                                                                staat
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_4 duplicate" type="checkbox"
+                                                                value="q_em_2" id="q_em_2" formControlName="q_em_2" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_2">
+                                                                Contract alleen in NL en persoon spreekt geen NL
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_em_11 duplicate" type="checkbox"
+                                                                value="q_em_11" id="q_em_11"
+                                                                formControlName="q_em_11" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_11">
+                                                                Gechanteerd door werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_3 duplicate" type="checkbox"
+                                                                value="q_em_16" id="q_em_16"
+                                                                formControlName="q_em_16" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_16">
+                                                                Gedwongen tot arbeid
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_3 duplicate" type="checkbox"
+                                                                value="q_em_1" id="q_em_1" formControlName="q_em_1" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_1">
+                                                                Geen contract ondertekend (>3 mdn werk à 16 uur p/w)
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_em_8" id="q_em_8" formControlName="q_em_8" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_8">
+                                                                Geen inschrijving Basis Register Personen (BRP) - uitleg
+                                                                achtergehouden
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_6 duplicate" type="checkbox"
+                                                                value="q_em_4" id="q_em_4" formControlName="q_em_4" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_4">
+                                                                Geen loonstrookje ontvangen
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_em_12" id="q_em_12"
+                                                                formControlName="q_em_12" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_12">
+                                                                Geen uitleg over inschrijving BRP + rechten huurwoning
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_5 duplicate" type="checkbox"
+                                                                value="q_em_3" id="q_em_3" formControlName="q_em_3" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_3">
+                                                                Geen vakantiegeld / vakantiedagen
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_em_24 duplicate" type="checkbox"
+                                                                value="q_em_24" id="q_em_24"
+                                                                formControlName="q_em_24" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_24">
+                                                                Gevaarlijk werk moeten doen (door nalatigheid werkgever)
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_6 duplicate" type="checkbox"
+                                                                value="q_em_9" id="q_em_9" formControlName="q_em_9" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_9">
+                                                                In bedrijfspand van werkgever verblijven
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_3 duplicate" type="checkbox"
+                                                                value="q_em_6" id="q_em_6" formControlName="q_em_6" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_6">
+                                                                Met valse beloften naar Nederland gehaald
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_6 duplicate" type="checkbox"
+                                                                value="q_em_19" id="q_em_19"
+                                                                formControlName="q_em_19" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_19">
+                                                                Mishandeld door werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_5 duplicate" type="checkbox"
+                                                                value="q_em_18" id="q_em_18"
+                                                                formControlName="q_em_18" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_18">
+                                                                Niet anders kunnen (onttrekken) dan uitbuiting ondergaan
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_11 duplicate" type="checkbox"
+                                                                value="q_em_15" id="q_em_15"
+                                                                formControlName="q_em_15" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_15">
+                                                                Niet op de hoogte van verblijfsadres
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_em_10 duplicate" type="checkbox"
+                                                                value="q_em_10" id="q_em_10"
+                                                                formControlName="q_em_10" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_10">
+                                                                Niet op de hoogte waar werkzaamheden plaats gaan vinden
+                                                                p/d
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_12 duplicate" type="checkbox"
+                                                                value="q_em_17" id="q_em_17"
+                                                                formControlName="q_em_17" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_17">
+                                                                Onder druk gezet worden op andere manieren door
+                                                                werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_4 duplicate" type="checkbox"
+                                                                value="q_em_7" id="q_em_7" formControlName="q_em_7" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_7">
+                                                                Op privéadres van werkgever verblijven
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_13 duplicate" type="checkbox"
+                                                                value="q_em_21" id="q_em_21"
+                                                                formControlName="q_em_21" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_21">
+                                                                Paspoort ingenomen als borg
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_7 duplicate" type="checkbox"
+                                                                value="q_em_5" id="q_em_5" formControlName="q_em_5" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_5">
+                                                                Schuld bij werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_8 duplicate" type="checkbox"
+                                                                value="q_em_22" id="q_em_22"
+                                                                formControlName="q_em_22" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_22">
+                                                                Vergoeding moeten betalen voor gebruikt vervoer
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_1 duplicate" type="checkbox"
+                                                                value="q_em_13" id="q_em_13"
+                                                                formControlName="q_em_13" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_em_13">
+                                                                Persoon heeft geen zorgverzekering en is hiervan op de hoogte
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="row mt-2">
+                                            <h5>Geef ons de werkgeversinformatie:</h5>
+                                        </div>
+
+                                        <div class="row mt-2 ms-2">
+                                            <div class="col-6">
+                                                <label class="form-label">Naam werkgever:</label>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2 ms-2">
+                                            <div class="col-6">
+                                                <input type="text" class="form-control input-md" id="employerName"
+                                                    name="employerName" formControlName="employerName">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2 ms-2">
+                                            <div class="col-6">
+                                                <label class="form-label">Naam uitzendbureau:</label>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2 ms-2">
+                                            <div class="col-6">
+                                                <input type="text" class="form-control input-md"
+                                                    id="employmentAgencyName" name="employmentAgencyName"
+                                                    formControlName="employmentAgencyName">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2 ms-2">
+                                            <div class="col-6">
+                                                <label class="form-label">Type branche:</label>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2 ms-2">
+                                            <div class="col-6">
+                                                <input type="text" class="form-control input-md" id="branchType"
+                                                    name="branchType" formControlName="branchType">
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </li>
+
+                                <!-- Labor -->
+                                <li [ngbNavItem]="5">
+                                    <a ngbNavLink><i class="fa-solid fa-user-tie"></i> Arbeid</a>
+                                    <ng-template ngbNavContent>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_7 duplicate" type="checkbox"
+                                                                value="q_la_15" id="q_la_15"
+                                                                formControlName="q_la_15" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_15">
+                                                                Angstig voor werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_4 duplicate" type="checkbox"
+                                                                value="q_la_5" id="q_la_5" formControlName="q_la_5" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_5">
+                                                                Contract alleen in NL en persoon spreekt geen NL
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_em_11 duplicate" type="checkbox"
+                                                                value="q_la_10" id="q_la_10"
+                                                                formControlName="q_la_10" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_10">
+                                                                Gechanteerd door werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_3 duplicate" type="checkbox"
+                                                                value="q_la_11" id="q_la_11"
+                                                                formControlName="q_la_11" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_11">
+                                                                Gedwongen tot arbeid
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_3 duplicate" type="checkbox"
+                                                                value="q_la_4" id="q_la_4" formControlName="q_la_4" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_4">
+                                                                Geen contract ondertekend (>3 mdn werk à 16 uur p/w)
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_em_24 duplicate" type="checkbox"
+                                                                value="q_la_1" id="q_la_1" formControlName="q_la_1" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_1">
+                                                                Gevaarlijk werk moeten doen (door nalatigheid werkgever)
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_7 duplicate" type="checkbox"
+                                                                value="q_la_18" id="q_la_18"
+                                                                formControlName="q_la_18" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_18">
+                                                                Huisvesting direct gekoppeld aan werkzaamheden. Door het
+                                                                verliezen van de werkzaamheden, verliest deze persoon
+                                                                ook zijn/haar huisvesting.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_3 duplicate" type="checkbox"
+                                                                value="q_la_7" id="q_la_7" formControlName="q_la_7" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_7">
+                                                                Met valse beloften naar Nederland gehaald
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_6 duplicate" type="checkbox"
+                                                                value="q_la_14" id="q_la_14"
+                                                                formControlName="q_la_14" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_14">
+                                                                Mishandeld door werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_he_5 duplicate" type="checkbox"
+                                                                value="q_la_13" id="q_la_13"
+                                                                formControlName="q_la_13" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_13">
+                                                                Niet anders kunnen (onttrekken) dan uitbuiting ondergaan
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_em_10 duplicate" type="checkbox"
+                                                                value="q_la_9" id="q_la_9" formControlName="q_la_9" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_9">
+                                                                Niet op de hoogte waar werkzaamheden plaats gaan vinden
+                                                                p/d
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_12 duplicate" type="checkbox"
+                                                                value="q_la_12" id="q_la_12"
+                                                                formControlName="q_la_12" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_12">
+                                                                Onder druk gezet worden op andere manieren door
+                                                                werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_la_2" id="q_la_2" formControlName="q_la_2" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_2">
+                                                                Ongezond werk moeten doen
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_13 duplicate" type="checkbox"
+                                                                value="q_la_16" id="q_la_16"
+                                                                formControlName="q_la_16" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_16">
+                                                                Paspoort ingenomen als borg
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_pa_7 duplicate" type="checkbox"
+                                                                value="q_la_6" id="q_la_6" formControlName="q_la_6" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_6">
+                                                                Schuld bij werkgever
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input chbx_d_ho_8 duplicate" type="checkbox"
+                                                                value="q_la_17" id="q_la_17"
+                                                                formControlName="q_la_17" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_17">
+                                                                Vergoeding moeten betalen voor gebruikt vervoer
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="btn-group" role="group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="q_la_3" id="q_la_3" formControlName="q_la_3" (click)="checkDuplicates($event,i)"/>
+                                                            <label class="form-check-label" for="q_la_3">
+                                                                Werkdagen > 8 uur
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </li>
+
+                                <!-- Comments -->
+                                <li [ngbNavItem]="6">
+                                    <a ngbNavLink class="opmerking"><i class="fa-solid fa-plus"></i> Opmerking</a>
+                                    <ng-template ngbNavContent>
+                                        <div class="mt-3">
+                                            <label for="remark" class="form-label">Noteer hier eventuele opmerkingen
+                                                over het signaal (maximaal 1000 tekens):</label>
+                                            <textarea class="form-control" id="remark" name="remark" rows="5"
+                                                maxlength="1000" formControlName="remark"></textarea>
+                                        </div>
+                                    </ng-template>
+                                </li>
+
+                            </ul>
+
+                            <div [ngbNavOutlet]="nav" class="mt-2 mb-2"></div>
+
+                            <!-- Buttons for the tabs -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+
+                                        <button *ngIf="(active === 1) && (i === 0)" type="button"
+                                            class="ml-auto ml-1 btn btn-primary"
+                                            routerLink="/numberPeople">Vorige</button>
+
+                                        <button *ngIf="(active === 1)  && (i !== 0)" mat-button matStepperPrevious
+                                            class="ml-auto ml-1 btn btn-primary">Vorige</button>
+
+                                        <button *ngIf="active !== 1" type="button" class="ml-auto ml-1 btn btn-primary"
+                                            (click)="previous()">Vorige</button>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+
+                                        <button *ngIf="active !== 6" type="button" class="ml-auto mr-1 btn btn-primary"
+                                            (click)="next()">Volgende</button>
+
+                                        <button *ngIf="(active === 6) && (numSteps !== 1) && (i + 1 < numSteps)"
+                                            mat-button matStepperNext class="ml-auto mr-1 btn btn-success"
+                                            (click)="goToNextReport(i)">Ga naar de volgende persoon</button>
+<!--
+                                        <button *ngIf="(active === 6) && ((numSteps === 1) || (i + 1 === numSteps))"
+                                            mat-button matStepperNext class="ml-auto mr-1 btn btn-success"
+                                            (click)="goToNextReport(i)">Volgende</button>
+                                        -->
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+
+                                        <button mat-button matStepperNext class="ml-auto mr-1 btn btn-success"
+                                            (click)="goToNextReport(i)">Verzend rapport</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-step>
+
+        <!-- Summary Step -->
+        <mat-step>
+            <ng-template matStepLabel>Overzicht</ng-template>
+
+            <p>Lees alle informatie voordat u het signaal verzendt. Om te zien welke wetsartikelen MOGELIJK zijn overtreden, klik dan op de indicator en dan zie je precies welke artikelen mogelijk zijn overtreden</p>
+
+            <ng-template matStepContent>
+                <mat-accordion class="example-headers-align" *ngFor="let report of listReports;">
+                    <mat-expansion-panel>
+
+                        <!-- Accordion Header -->
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <strong>{{report.title}}</strong>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <!-- Definition of the ofenses and laws -->
+                        <ng-template #BW7_art610a>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 610a</a>
+                        </ng-template>
+                        <ng-template #BW7_art616>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 616</a>
+                        </ng-template>
+                        <ng-template #BW7_art617_lid2>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 617, lid 2</a>
+                        </ng-template>
+                        <ng-template #BW7_art621>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 621</a>
+                        </ng-template>
+                        <ng-template #BW7_art625>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 625</a>
+                        </ng-template>
+                        <ng-template #BW7_art626_lid1>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 626, lid 1</a>
+                        </ng-template>
+                        <ng-template #BW7_art634_lid1>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 634 lid 1</a>
+                        </ng-template>
+                        <ng-template #BW7_art650_lid1>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 650, lid 1</a>
+                        </ng-template>
+                        <ng-template #BW7_art655_lid1_subb>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 655, lid 1, sub b</a>
+                        </ng-template>
+                        <ng-template #BW7_art655_lid8>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 655, lid 8</a>
+                        </ng-template>
+                        <ng-template #BW7_art658_lid1>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 658, lid 1</a>
+                        </ng-template>
+                        <ng-template #BRP_art2_4>
+                            <a href="http://www.jads.nl" target="_blank">BRP, Art. 2.4</a>
+                        </ng-template>
+                        <ng-template #ZvW_art2>
+                            <a href="http://www.jads.nl" target="_blank">ZvW, Art. 2</a>
+                        </ng-template>
+                        <ng-template #WvSr_273f_lid1_sub1>
+                            <a href="http://www.jads.nl" target="_blank">WvSr, 273f, lid 1, sub 1</a>
+                        </ng-template>
+                        <ng-template #WvSr_273f_lid1_sub4>
+                            <a href="http://www.jads.nl" target="_blank">WvSr, 273f, lid 1, sub 4</a>
+                        </ng-template>
+                        <ng-template #WvSr_273f_lid6>
+                            <a href="http://www.jads.nl" target="_blank">WvSr, 273f, lid 6</a>
+                        </ng-template>
+
+                        <ng-template #BW7_art616_art621_art625>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 616</a><br />
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 621</a><br />
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 625</a>
+                        </ng-template>
+                        <ng-template #BW7_art610a_art655>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 610a</a><br />
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 655, lid 8</a>
+                        </ng-template>
+                        <ng-template #BW7_art626_art634>
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 626, lid 1</a><br />
+                            <a href="http://www.jads.nl" target="_blank">BW:7, Art. 634 lid 1</a>
+                        </ng-template>
+
+                        <ng-template #popContentTBD>
+                            <a href="http://www.jads.nl" target="_blank">Later uit te werken</a>
+                        </ng-template>
+                        <!-- Not criminal law => class="btn btn-outline-warning btn-sm" -->
+                        <!-- Criminal law => class="btn btn-outline-danger btn-sm" -->
+
+                        <!-- Housing -->
+                        <b>Huisvesting:</b>
+                        <ul>
+                            <ng-template [ngIf]="report.q_ho_1 == 'q_ho_1'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Huur afgetrokken van het loon zonder SNF keurmerk
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_2 == 'q_ho_2'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art617_lid2">
+                                        Kosten door werkgever verleende diensten (huur, vervoer, etc) onevenredig hoog
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_3 == 'q_ho_3'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Met valse beloften naar Nederland gehaald
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_4 == 'q_ho_4'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Op privéadres van werkgever verblijven
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_5 == 'q_ho_5'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BRP_art2_4">
+                                        Geen inschrijving Basis Register Personen (BRP) - uitleg achtergehouden
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_6 == 'q_ho_6'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        In bedrijfspand van werkgever verblijven
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_7 == 'q_ho_7'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Huisvesting direct gekoppeld aan werkzaamheden. Door het verliezen van de
+                                        werkzaamheden, verliest deze persoon ook zijn/haar huisvesting.
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_8 == 'q_ho_8'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art617_lid2">
+                                        Vergoeding moeten betalen voor gebruikt vervoer
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_9 == 'q_ho_9'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Anderzijds slecht gehuisvest - Onveilige / ongezonde/ gevaarlijke woonsituatie
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_10 == 'q_ho_10'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Kleine woonruimte moeten delen met (onbekende) collega's
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_11 == 'q_ho_11'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Niet op de hoogte van verblijfsadres
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_12 == 'q_ho_12'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Onder druk gezet worden op andere manieren door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_13 == 'q_ho_13'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Paspoort ingenomen als borg
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_14 == 'q_ho_14'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Maximale aantal huishoudens (volgens bouwbesluit) wordt overschreden
+                                    </button>
+                                </li>
+                                <li>Wat is het maximale aantal huishoudens volgens het bestemmingsplan =
+                                    {{report.maxHouseholds}}</li>
+                                <li>Hoeveel mensen wonen er in het huis = {{report.numPeople}}</li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_ho_15 == 'q_ho_15'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Illegale bewoning van (bij)gebouw (overtreding bestemmingsplan)
+                                    </button>
+                                </li>
+                            </ng-template>
+                        </ul>
+
+                        <!-- Health -->
+                        <b>Gezondheid:</b>
+                        <ul>
+                            <ng-template [ngIf]="report.q_he_1 == 'q_he_1'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="ZvW_art2">
+                                        Persoon heeft geen zorgverzekering en is hiervan op de hoogte
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_he_2 == 'q_he_2'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" placement="bottom"
+                                        [ngbPopover]="WvSr_273f_lid1_sub1">
+                                        Bedreigd door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_he_3 == 'q_he_3'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" placement="bottom"
+                                        [ngbPopover]="WvSr_273f_lid1_sub4">
+                                        Gedwongen tot arbeid
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_he_4 == 'q_he_4'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Onder druk gezet worden op andere manieren door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_he_5 == 'q_he_5'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" placement="bottom"
+                                        [ngbPopover]="WvSr_273f_lid6">
+                                        Niet anders kunnen (onttrekken) dan uitbuiting ondergaan
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_he_6 == 'q_he_6'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" placement="bottom"
+                                        [ngbPopover]="WvSr_273f_lid1_sub1">
+                                        Mishandeld door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_he_7 == 'q_he_7'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Angstig voor werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_he_8 == 'q_he_8'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Paspoort ingenomen als borg
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_he_9 == 'q_he_9'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Persoon heeft zorg nodig gehad (bedrijfsongeval of anderzijds fysieke zorg nodig) en bleek niet verzekerd te zijn zonder daarvan op de hoogte te zijn en wél te hebben betaald voor verzekering
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_he_10 == 'q_he_10'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Zichtbaar fysiek letsel (bv gebroken arm)
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_he_11 == 'q_he_11'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Woonsituatie zeer onhygiënisch (ongezonde leefomstandigheden zoals schimmel etc.)
+                                    </button>
+                                </li>
+                            </ng-template>
+                        </ul>
+
+                        <!-- Payment -->
+                        <b>Betaling:</b>
+                        <ul>
+                            <ng-template [ngIf]="report.q_pa_1 == 'q_pa_1'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art616_art621_art625">
+                                        Overschrijding uitbetalingstermijn (>30 dgn)
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_2 == 'q_pa_2'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Zwart betaald
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_3 == 'q_pa_3'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art610a_art655">
+                                        Geen contract ondertekend (>3 mdn werk à 16 uur p/w)
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_4 == 'q_pa_4'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Contract alleen in NL en persoon spreekt geen NL
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_5 == 'q_pa_5'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art626_art634">
+                                        Geen vakantiegeld / vakantiedagen
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_6 == 'q_pa_6'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art626_lid1">
+                                        Geen loonstrookje ontvangen
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_7 == 'q_pa_7'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Schuld bij werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_8 == 'q_pa_8'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Niet kunnen beschikken over eigen bankrekening
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_9 == 'q_pa_9'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Huur afgetrokken van het loon zonder SNF keurmerk
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_10 == 'q_pa_10'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art617_lid2">
+                                        Kosten door werkgever verleende diensten (huur, vervoer, etc.) onevenredig hoog
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_12 == 'q_pa_12'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Onder druk gezet worden op andere manieren door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_13 == 'q_pa_13'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Paspoort ingenomen als borg
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_14 == 'q_pa_14'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art617_lid2">
+                                        Vergoeding moeten betalen voor gebruikt vervoer
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_15 == 'q_pa_15'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art650_lid1">
+                                        Boete moeten betalen die niet in arbeidsovereenkomst staat
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_pa_16 == 'q_pa_16'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art650_lid1">
+                                        Kan contract niet laten zien
+                                    </button>
+                                </li>
+                            </ng-template>
+                        </ul>
+
+                        <!-- Employer -->
+                        <b>Werkgever:</b>
+                        <ul>
+                            <ng-template [ngIf]="report.q_em_1 == 'q_em_1'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art610a_art655">
+                                        Geen contract ondertekend
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_2 == 'q_em_2'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Contract alleen in NL en persoon spreekt geen NL
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_3 == 'q_em_3'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art626_art634">
+                                        Geen vakantiegeld / vakantiedagen
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_4 == 'q_em_4'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art626_lid1">
+                                        Geen loonstrookje ontvangen
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_5 == 'q_em_5'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Schuld bij werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_6 == 'q_em_6'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Met valse beloften naar Nederland gehaald
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_7 == 'q_em_7'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Op privéadres van werkgever verblijven
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_8 == 'q_em_8'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BRP_art2_4">
+                                        Geen inschrijving Basis Register Personen (BRP) - uitleg achtergehouden
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_9 == 'q_em_9'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        In bedrijfspand van werkgever verblijven
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_10 == 'q_em_10'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art655_lid1_subb">
+                                        Niet op de hoogte waar werkzaamheden plaats gaan vinden p/d
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_11 == 'q_em_11'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Gechanteerd door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_12 == 'q_em_12'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Geen uitleg over inschrijving BRP + rechten huurwoning
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_13 == 'q_em_13'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="ZvW_art2">
+                                        Persoon heeft geen zorgverzekering en is hiervan op de hoogte
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_14 == 'q_em_14'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" placement="bottom"
+                                        [ngbPopover]="WvSr_273f_lid1_sub1">
+                                        Bedreigd door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_15 == 'q_em_15'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Niet op de hoogte van verblijfsadres
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_16 == 'q_em_16'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" placement="bottom"
+                                        [ngbPopover]="WvSr_273f_lid1_sub4">
+                                        Gedwongen tot arbeid
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_17 == 'q_em_17'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Onder druk gezet worden op andere manieren door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_18 == 'q_em_18'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" placement="bottom"
+                                        [ngbPopover]="WvSr_273f_lid6">
+                                        Niet anders kunnen (onttrekken) dan uitbuiting ondergaan
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_19 == 'q_em_19'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" placement="bottom"
+                                        [ngbPopover]="WvSr_273f_lid1_sub1">
+                                        Mishandeld door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_20 == 'q_em_20'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Angstig voor werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_21 == 'q_em_21'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Paspoort ingenomen als borg
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_22 == 'q_em_22'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art617_lid2">
+                                        Vergoeding moeten betalen voor gebruikt vervoer
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_23 == 'q_em_23'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art650_lid1">
+                                        Boete moeten betalen die niet in arbeidsovereenkomst staat
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_24 == 'q_em_24'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art658_lid1">
+                                        Gevaarlijk werk moeten doen (door nalatigheid werkgever)
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_em_25 == 'q_em_25'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Anderzijds slecht gehuisvest (min. 10m2 p/p woonoppervlak)
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.employerName !== ''">
+                                <li>Naam werkgever: {{report.employerName}}</li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.employmentAgencyName !== ''">
+                                <li>Naam uitzendbureau: {{report.employmentAgencyName}}</li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.branchType !== ''">
+                                <li>Type branche: {{report.branchType}}</li>
+                            </ng-template>
+                        </ul>
+
+                        <!-- Labor -->
+                        <b>Arbeid:</b>
+                        <ul>
+                            <ng-template [ngIf]="report.q_la_1 == 'q_la_1'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art658_lid1">
+                                        Gevaarlijk werk moeten doen (door nalatigheid werkgever)
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_2 == 'q_la_2'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art658_lid1">
+                                        Ongezond werk moeten doen
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_3 == 'q_la_3'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Werkdagen > 8 uur
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_4 == 'q_la_4'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art610a_art655">
+                                        Geen contract ondertekend
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_5 == 'q_la_5'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Contract alleen in NL en persoon spreekt geen NL
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_6 == 'q_la_6'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art626_lid1">
+                                        Schuld bij werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_7 == 'q_la_7'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Met valse beloften naar Nederland gehaald
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_9 == 'q_la_9'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art655_lid1_subb">
+                                        Niet op de hoogte waar werkzaamheden plaats gaan vinden p/d
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_10 == 'q_la_10'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Gechanteerd door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_11 == 'q_la_11'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" placement="bottom"
+                                        [ngbPopover]="WvSr_273f_lid1_sub4">
+                                        Gedwongen tot arbeid
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_12 == 'q_la_12'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Onder druk gezet worden op andere manieren door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_13 == 'q_la_13'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" placement="bottom"
+                                        [ngbPopover]="WvSr_273f_lid6">
+                                        Niet anders kunnen (onttrekken) dan uitbuiting ondergaan
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_14 == 'q_la_14'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" placement="bottom"
+                                        [ngbPopover]="WvSr_273f_lid1_sub1">
+                                        Mishandeld door werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_15 == 'q_la_15'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Angstig voor werkgever
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_16 == 'q_la_16'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Paspoort ingenomen als borg
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_17 == 'q_la_17'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="BW7_art617_lid2">
+                                        Vergoeding moeten betalen voor gebruikt vervoer
+                                    </button>
+                                </li>
+                            </ng-template>
+                            <ng-template [ngIf]="report.q_la_18 == 'q_la_18'">
+                                <li>
+                                    <button type="button" class="btn btn-outline-warning btn-sm" placement="bottom"
+                                        [ngbPopover]="popContentTBD">
+                                        Huisvesting direct gekoppeld aan werkzaamheden. Door het verliezen van de
+                                        werkzaamheden, verliest deze persoon ook zijn/haar huisvesting
+                                    </button>
+                                </li>
+                            </ng-template>
+                        </ul>
+
+                        <!-- Comments -->
+                        <b>Opmerking:</b>
+                        <p>{{report.remark}}</p>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                            <button mat-button matStepperPrevious class="ml-auto ml-1 btn btn-primary">Vorige</button>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                            <button class="ml-auto mr-1 btn btn-success" (click)="submit()">Alle rapporten
+                                verzenden</button>
+                        </div>
+                    </div>
+                </div>
+
+            </ng-template>
+        </mat-step>
+    </mat-stepper>
+
+</form>

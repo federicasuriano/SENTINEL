@@ -1,0 +1,58 @@
+<div class="container mt-3">
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10 mx-0 px-0">
+
+            <div id="qbox-container">
+
+                <h3>Let op! Er zijn andere meldingen op dit adres:</h3><br />
+
+                <h4 class="text-primary">{{ address.street }} {{ address.number }} {{ address.addition }}, {{
+                    address.postcode }}, {{
+                    address.city }}, {{ address.province }}</h4>
+
+                <!-- <button type="button" class="ml-auto mr-1 btn btn-primary" (click)="getAddresses()">Addresses</button> -->
+                <div class='table-responsive mt-4'>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Naam werkgever</th>
+                                <th>Naam uitzendbureau</th>
+                                <th>Type branche</th>
+                                <th>Max huishoudens</th>
+                                <th>Num huishoudens</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let report of sortedReports;">
+                                <td>{{report.reportTime | date:'MM/dd/yy, H:mm' }}</td>
+                                <td>{{report.employerName}}</td>
+                                <td>{{report.employmentAgencyName}}</td>
+                                <td>{{report.branchType}}</td>
+                                <td>{{report.maxHouseholds}}</td>
+                                <td>{{report.numPeople}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                            <button type="button" class="ml-auto mr-1 btn btn-primary"
+                                routerLink="/location">Vorige</button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                            <button type="button" class="ml-auto mr-1 btn btn-primary"
+                                (click)="goToNumberPeople()">Volgende</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

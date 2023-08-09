@@ -1,0 +1,5 @@
+1- Maps JavaScript API  (for the map)
+2- Geocoding API (for the markers)
+3- Places API (for the search box)
+
+https://mapsplatform.google.com/intl/en/pricing/

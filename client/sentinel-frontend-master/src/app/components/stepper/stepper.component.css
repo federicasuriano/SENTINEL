@@ -1,0 +1,59 @@
+.example-stepper {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+  pointer-events: none !important;
+}
+
+::ng-deep .mat-vertical-stepper-header {
+  pointer-events: none !important;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field+.mat-form-field {
+  margin-left: 8px;
+}
+
+.input-sm {
+  min-width: 70px;
+}
+
+.input-md {
+  min-width: 160px;
+}
+
+.nav-tabs .nav-item {
+  width: 15%;
+  text-align: center;
+}
+
+.opmerking{
+  color: #fc7c0d;
+}
+
+.opmerking.active{
+  color: #ffffff;
+  background-color: #fc7c0d;
+}
+
+label{
+  color: #002A44;
+}
+
+.textabove{
+  color: #fc7c0d;
+}

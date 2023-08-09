@@ -1,0 +1,59 @@
+# https://blog.jdriven.com/2018/10/securing-spring-microservices-with-keycloak-part-1/
+# https://blog.jdriven.com/2018/10/securing-spring-microservices-with-keycloak-part-2/ 
+
+docker run -d --name=keycloak -p 8080:8080 -p 9990:9990 -e KEYCLOAK_USER=keycloak_admin -e KEYCLOAK_PASSWORD=eeX2uque jboss/keycloak
+
+docker ps
+
+docker run --name=kcadm.sh --network="host" --rm -it --entrypoint /bin/bash jboss/keycloak
+
+alias kcadm.sh=/opt/jboss/keycloak/bin/kcadm.sh
+
+kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user keycloak_admin
+
+kcadm.sh create realms --set realm=springservice --set enabled=true
+
+kcadm.sh create clients --target-realm springservice --set clientId=login-app --set directAccessGrantsEnabled=true --set publicClient=true --set 'redirectUris=["http://localhost:8082/*"]' --id
+
+kcadm.sh create roles --target-realm springservice --set name=ROLE_USER -o
+
+kcadm.sh create users --target-realm springservice --set username=user1 --set email=user1@testdomain.nl --set enabled=true --output --fields id,username
+
+kcadm.sh set-password --target-realm springservice --username user1 --new-password ooR9ooha
+
+kcadm.sh add-roles --target-realm springservice --uusername user1 --rolename ROLE_USER
+
+curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=user1&grant_type=password&client_id=login-app&password=ooR9ooha' http://localhost:8080/auth/realms/springservice/protocol/openid-connect/token
+
+curl.exe -s start.spring.io/starter.tgz -d type=gradle-project -d groupId=net.vanweenen.keycloak -d artifactId=frontend -d language=java -d dependencies=web,thymeleaf,keycloak,security -d baseDir=keycloak-frontend | tar -xzvf -
+
+=====================================
+
+# defining sentinel theme:
+# https://www.baeldung.com/spring-boot-keycloak
+# https://www.baeldung.com/spring-keycloak-custom-themes
+# https://www.baeldung.com/keycloak-custom-login-page
+# https://www.baeldung.com/keycloak-user-registration
+# https://www.baeldung.com/keycloak-custom-user-attributes
+
+# Whitelist email domain:
+# https://github.com/micedre/keycloak-mail-whitelisting
+# https://keycloak.discourse.group/t/how-to-restrict-registration-to-specific-email-domains/702/8
+
+# Configure mail server:
+# https://dev.to/rounakcodes/keycloak-configure-realm-email-settings-gmail-3dfn
+# https://support.google.com/accounts/answer/185833?hl=en&ctx=ch_b%2F0%2FDisplayUnlockCaptcha
+
+# Internationalization
+# https://wjw465150.gitbooks.io/keycloak-documentation/content/server_development/topics/themes.html
+
+# composite roles
+# https://www.thomasvitale.com/keycloak-configuration-authentication-authorisation/
+
+# Navigation Multi Step Form: ng-bootstrap project: Angular powered Bootstrap
+# https://stackblitz.com/edit/angular-iel3cl?file=src%2Findex.html
+
+# Keycloak with Angular and Spring Boot
+# https://medium.com/@kamleshbadgujar00/secure-spring-boot-angular-9-application-using-keycloak-1-3-b00e801ba693
+# https://medium.com/@kamleshbadgujar00/secure-spring-boot-angular-9-application-using-keycloak-2-3-bf98ba360d66
+# https://medium.com/@kamleshbadgujar00/integrating-angular-application-with-keycloak-3-3-8aee940897e

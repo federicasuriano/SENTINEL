@@ -1,0 +1,99 @@
+<div class="container mt-3">
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10 mx-0 px-0">
+
+            <div id="qbox-container">
+
+                <h3>Geef ons het adres door:</h3><br />
+<!--
+                <div class="mapClass" id="map"></div>
+
+                <br /><br />
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="search">Zoek het adres: </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input class="form-control" id="searchBarId" type="text" placeholder="" />
+                    </div>
+                    <div class="col">
+                        <button type="button" class="ml-auto mr-1 btn btn-success" id="relocationButtonId"
+                            (click)="resetPosition()">Ga naar mijn locatie</button>
+                    </div>
+                </div>
+-->
+                <br />
+                <hr />
+
+                <form>
+                    <div class="row">
+                        <div class="col">
+
+                            <!-- Street -->
+                            <div class="row">
+                                <div class="col">
+                                    <label for="street">Straat:</label>
+                                    <input type="text" class="form-control" id="streetId" name="streetId"
+                                        [(ngModel)]="streetId">
+                                </div>
+                            </div>
+
+                            <!-- Number and Addition -->
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="number">Nummer:</label>
+                                    <input type="text" class="form-control" id="numberId" name="numberId"
+                                        [(ngModel)]="numberId">
+                                </div>
+                                <div class="col">
+                                    <label for="addition">Toevoeging:</label>
+                                    <input type="text" class="form-control" id="additionId" name="additionId"
+                                        [(ngModel)]="additionId">
+                                </div>
+                            </div>
+
+                            <!-- City -->
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="city">Stad:</label>
+                                    <input type="text" class="form-control" id="cityId" name="cityId"
+                                        [(ngModel)]="cityId">
+                                </div>
+                            </div>
+
+                            <!-- Province -->
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="province">Province:</label>
+                                    <input type="text" class="form-control" id="provinceId" name="provinceId"
+                                        [(ngModel)]="provinceId">
+                                </div>
+                            </div>
+
+                            <!-- Postcode -->
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="postcode">Postcode:</label>
+                                    <input type="text" class="form-control" id="postalCodeId" name="postalCodeId"
+                                        [(ngModel)]="postalCodeId">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                                <button type="button" class="ml-auto mr-1 btn btn-primary"
+                                    (click)="checkAddress()">Volgende</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

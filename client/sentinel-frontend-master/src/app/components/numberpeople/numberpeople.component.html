@@ -1,0 +1,55 @@
+<div class="container mt-3">
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10 mx-0 px-0">
+
+            <div id="qbox-container">
+
+                <form name="numberOfPeople" class="row g-3">
+
+                    <div class="row">
+                        <div class="col">
+                            <h3>Wilt u aangeven voor hoeveel personen u een melding wilt doen?</h3>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-9">
+                            <label for="numSameForms">Voor hoeveel personen wilt u een melding doen?</label>
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" id="numSameForms" name="numSameForms"
+                                [(ngModel)]="numSameForms">
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-9">
+                            <label for="numDiffForms">Zijn er personen waarvoor je een apart signaal wilt inbrengen? Bijvoorbeeld omdat er andere indicatoren van arbeidsuitbuiting dan bij de rest van de groep meespelen?</label>
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" id="numDiffForms" value=0 name="numDiffForms"
+                                [(ngModel)]="numDiffForms">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                                <button type="button" class="ml-auto mr-1 btn btn-primary"
+                                    routerLink="/location">Vorige</button>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                                <button type="button" class="ml-auto mr-1 btn btn-primary"
+                                    (click)="checkNumberOfPeople(numSameForms, numDiffForms)">Volgende</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+2022-11-24 17:10:22,539 INFO  [org.jboss.modules] (main) JBoss Modules version 2.0.0.Final
+2022-11-24 17:10:23,035 INFO  [org.jboss.msc] (main) JBoss MSC version 1.4.13.Final
+2022-11-24 17:10:23,044 INFO  [org.jboss.threads] (main) JBoss Threads version 2.4.0.Final
+2022-11-24 17:10:23,164 INFO  [org.jboss.as] (MSC service thread 1-2) WFLYSRV0049: Keycloak 16.1.1 (WildFly Core 18.0.4.Final) starting
+2022-11-24 17:10:23,165 DEBUG [org.jboss.as.config] (MSC service thread 1-2) Configured system properties:
+	[Standalone] = 
+	file.encoding = UTF-8
+	file.separator = /
+	ftp.nonProxyHosts = local|*.local|169.254/16|*.169.254/16
+	http.nonProxyHosts = local|*.local|169.254/16|*.169.254/16
+	java.awt.headless = true
+	java.class.path = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/jboss-modules.jar
+	java.class.version = 61.0
+	java.home = /Library/Java/JavaVirtualMachines/jdk-17.0.1.jdk/Contents/Home
+	java.io.tmpdir = /var/folders/fm/b0vpyrvx4rxdm517bjkgk1mh0000gn/T/
+	java.library.path = /Users/fabiano/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+	java.net.preferIPv4Stack = true
+	java.runtime.name = Java(TM) SE Runtime Environment
+	java.runtime.version = 17.0.1+12-LTS-39
+	java.specification.name = Java Platform API Specification
+	java.specification.vendor = Oracle Corporation
+	java.specification.version = 17
+	java.util.logging.manager = org.jboss.logmanager.LogManager
+	java.vendor = Oracle Corporation
+	java.vendor.url = https://java.oracle.com/
+	java.vendor.url.bug = https://bugreport.java.com/bugreport/
+	java.version = 17.0.1
+	java.version.date = 2021-10-19
+	java.vm.compressedOopsMode = Zero based
+	java.vm.info = mixed mode, sharing
+	java.vm.name = Java HotSpot(TM) 64-Bit Server VM
+	java.vm.specification.name = Java Virtual Machine Specification
+	java.vm.specification.vendor = Oracle Corporation
+	java.vm.specification.version = 17
+	java.vm.vendor = Oracle Corporation
+	java.vm.version = 17.0.1+12-LTS-39
+	javax.management.builder.initial = org.jboss.as.jmx.PluggableMBeanServerBuilder
+	jboss.home.dir = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master
+	jboss.host.name = wlan-044250
+	jboss.modules.dir = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/modules
+	jboss.modules.system.pkgs = org.jboss.byteman
+	jboss.node.name = wlan-044250
+	jboss.qualified.host.name = wlan-044250.nbw.tue.nl
+	jboss.server.base.dir = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone
+	jboss.server.config.dir = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone/configuration
+	jboss.server.data.dir = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone/data
+	jboss.server.deploy.dir = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone/data/content
+	jboss.server.log.dir = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone/log
+	jboss.server.name = wlan-044250
+	jboss.server.persist.config = true
+	jboss.server.temp.dir = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone/tmp
+	jdk.debug = release
+	line.separator = 
+
+	logging.configuration = file:/Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone/configuration/logging.properties
+	module.path = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/modules
+	native.encoding = UTF-8
+	org.jboss.boot.log.file = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone/log/server.log
+	org.jboss.resolver.warning = true
+	os.arch = x86_64
+	os.name = Mac OS X
+	os.version = 11.2.1
+	path.separator = :
+	socksNonProxyHosts = local|*.local|169.254/16|*.169.254/16
+	sun.arch.data.model = 64
+	sun.boot.library.path = /Library/Java/JavaVirtualMachines/jdk-17.0.1.jdk/Contents/Home/lib
+	sun.cpu.endian = little
+	sun.io.unicode.encoding = UnicodeBig
+	sun.java.command = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/jboss-modules.jar -mp /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/modules org.jboss.as.standalone -Djboss.home.dir=/Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master -Djboss.server.base.dir=/Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone
+	sun.java.launcher = SUN_STANDARD
+	sun.jnu.encoding = UTF-8
+	sun.management.compiler = HotSpot 64-Bit Tiered Compilers
+	sun.stderr.encoding = UTF-8
+	sun.stdout.encoding = UTF-8
+	user.country = IT
+	user.dir = /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/bin
+	user.home = /Users/fabiano
+	user.language = it
+	user.name = fabiano
+	user.timezone = Europe/Amsterdam
+2022-11-24 17:10:23,168 DEBUG [org.jboss.as.config] (MSC service thread 1-2) VM Arguments: -D[Standalone] -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true --add-exports=java.desktop/sun.awt=ALL-UNNAMED --add-exports=java.naming/com.sun.jndi.ldap=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.security=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.management/javax.management=ALL-UNNAMED --add-opens=java.naming/javax.naming=ALL-UNNAMED -Dorg.jboss.boot.log.file=/Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone/log/server.log -Dlogging.configuration=file:/Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone/configuration/logging.properties 
+2022-11-24 17:10:23,775 INFO  [org.wildfly.security] (ServerService Thread Pool -- 19) ELY00001: WildFly Elytron version 1.18.3.Final
+2022-11-24 17:10:24,388 INFO  [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0039: Creating http management service using socket-binding (management-http)
+2022-11-24 17:10:24,410 INFO  [org.xnio] (MSC service thread 1-4) XNIO version 3.8.5.Final
+2022-11-24 17:10:24,419 INFO  [org.xnio.nio] (MSC service thread 1-4) XNIO NIO Implementation Version 3.8.5.Final
+2022-11-24 17:10:24,449 INFO  [org.wildfly.extension.io] (ServerService Thread Pool -- 37) WFLYIO001: Worker 'default' has auto-configured to 16 IO threads with 128 max task threads based on your 8 available processors
+2022-11-24 17:10:24,449 INFO  [org.wildfly.extension.health] (ServerService Thread Pool -- 35) WFLYHEALTH0001: Activating Base Health Subsystem
+2022-11-24 17:10:24,449 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 36) WFLYCLINF0001: Activating Infinispan subsystem.
+2022-11-24 17:10:24,465 INFO  [org.jboss.as.jaxrs] (ServerService Thread Pool -- 38) WFLYRS0016: RESTEasy version 4.7.4.Final
+2022-11-24 17:10:24,474 WARN  [org.jboss.as.txn] (ServerService Thread Pool -- 49) WFLYTX0013: The node-identifier attribute on the /subsystem=transactions is set to the default value. This is a danger for environments running multiple servers. Please make sure the attribute value is unique.
+2022-11-24 17:10:24,478 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 45) WFLYNAM0001: Activating Naming Subsystem
+2022-11-24 17:10:24,493 INFO  [org.wildfly.extension.metrics] (ServerService Thread Pool -- 44) WFLYMETRICS0001: Activating Base Metrics Subsystem
+2022-11-24 17:10:24,500 INFO  [org.jboss.as.connector] (MSC service thread 1-6) WFLYJCA0009: Starting Jakarta Connectors Subsystem (WildFly/IronJacamar 1.5.3.Final)
+2022-11-24 17:10:24,507 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 30) WFLYJCA0004: Deploying JDBC-compliant driver class org.h2.Driver (version 1.4)
+2022-11-24 17:10:24,522 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-4) WFLYJCA0018: Started Driver service with driver-name = h2
+2022-11-24 17:10:24,531 INFO  [org.jboss.as.naming] (MSC service thread 1-4) WFLYNAM0003: Starting Naming Service
+2022-11-24 17:10:24,532 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-4) WFLYMAIL0001: Bound mail session [java:jboss/mail/Default]
+2022-11-24 17:10:24,533 INFO  [org.jboss.remoting] (MSC service thread 1-7) JBoss Remoting version 5.0.23.Final
+2022-11-24 17:10:24,534 WARN  [org.wildfly.extension.elytron] (MSC service thread 1-5) WFLYELY00023: KeyStore file '/Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone/configuration/application.keystore' does not exist. Used blank.
+2022-11-24 17:10:24,557 WARN  [org.wildfly.extension.elytron] (MSC service thread 1-5) WFLYELY01084: KeyStore /Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/standalone/configuration/application.keystore not found, it will be auto generated on first use with a self-signed certificate for host localhost
+2022-11-24 17:10:24,603 INFO  [org.jboss.as.ejb3] (MSC service thread 1-8) WFLYEJB0481: Strict pool slsb-strict-max-pool is using a max instance size of 128 (per class), which is derived from thread worker pool sizing.
+2022-11-24 17:10:24,603 INFO  [org.jboss.as.ejb3] (MSC service thread 1-4) WFLYEJB0482: Strict pool mdb-strict-max-pool is using a max instance size of 32 (per class), which is derived from the number of CPUs on this host.
+2022-11-24 17:10:24,613 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0003: Undertow 2.2.14.Final starting
+2022-11-24 17:10:24,623 WARN  [org.wildfly.clustering.web.undertow] (ServerService Thread Pool -- 50) WFLYCLWEBUT0007: No routing provider found for default-server; using legacy provider based on static configuration
+2022-11-24 17:10:24,653 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 50) WFLYUT0014: Creating file handler for path '/Users/fabiano/Desktop/SENTINEL/sentinel-keycloak-master/welcome-content' with options [directory-listing: 'false', follow-symlink: 'false', case-sensitive: 'true', safe-symlink-paths: '[]']
+2022-11-24 17:10:24,655 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0012: Started server default-server.
+2022-11-24 17:10:24,655 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) Queuing requests.
+2022-11-24 17:10:24,657 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0018: Host default-host starting
+2022-11-24 17:10:24,700 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0006: Undertow HTTP listener default listening on 127.0.0.1:8080
+2022-11-24 17:10:24,755 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-7) WFLYUT0006: Undertow HTTPS listener https listening on 127.0.0.1:8443
+2022-11-24 17:10:24,740 INFO  [org.jboss.as.ejb3] (MSC service thread 1-2) WFLYEJB0493: Jakarta Enterprise Beans subsystem suspension complete
+2022-11-24 17:10:24,828 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) WFLYJCA0001: Bound data source [java:jboss/datasources/ExampleDS]
+2022-11-24 17:10:24,828 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-7) WFLYJCA0001: Bound data source [java:jboss/datasources/KeycloakDS]

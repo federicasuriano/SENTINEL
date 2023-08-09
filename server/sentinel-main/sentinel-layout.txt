@@ -1,0 +1,8 @@
+Color scheme:
+
+Dark blue: #002A44
+Light Orange: #FF914D
+Dark red: #920E0E
+Turquoise: #49BCCB
+
+FONT: Poppins 
