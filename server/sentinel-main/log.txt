@@ -8,3 +8,6 @@
 1691582570508 employerExpl(105) 
 1691582570509 noContract(105) 
 1691582570509 noVacation(105) 
+1695361849109 reported(113) 
+1695361849116 reportedInCity(113, 's Hertogenbosch) 
+1695361849120 located(113, 51) 

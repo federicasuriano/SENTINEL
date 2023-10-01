@@ -1,6 +1,6 @@
 #FileLock
-#Wed Aug 09 13:56:32 CEST 2023
-hostName=DESKTOP-IS27NDR.mshome.net
-id=189da27d4dfc9ee7f3081f74ab07c274b72fff8871c
+#Fri Sep 22 07:47:18 CEST 2023
+hostName=DESKTOP-IS27NDR.lan
+id=18abb6d98bfac7840c8bab4a9084461ed0baf109ae4
 method=file
-server=172.21.16.1\:60840
+server=192.168.1.174\:59985
