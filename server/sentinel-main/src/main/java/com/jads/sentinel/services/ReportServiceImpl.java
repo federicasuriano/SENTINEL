@@ -373,7 +373,7 @@ public class ReportServiceImpl implements ReportService {
 		}
 		if (request.getQ_la_2() != null) {
 			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_2()); 
-			labor = true;
+			//labor = true;
 		}
 		if (request.getQ_la_3() != null) {
 			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_3()); 
