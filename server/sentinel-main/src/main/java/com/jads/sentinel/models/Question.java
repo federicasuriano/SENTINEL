@@ -4,7 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,8 +23,9 @@ public class Question {
 	@Id
 	private String id;
 	
-	@ManyToMany(mappedBy = "questions")
-	@JsonIgnore 
-	private Set<Category> categories;
+	@OneToMany(mappedBy = "issue")
+	@JsonIgnore
+	private Set<Issue> issues;
+	
 }
 

@@ -15,6 +15,7 @@ import com.jads.sentinel.dto.ReportRequest;
 import com.jads.sentinel.logging.Log;
 import com.jads.sentinel.models.Address;
 import com.jads.sentinel.models.Category;
+import com.jads.sentinel.models.Issue;
 import com.jads.sentinel.models.Report;
 import com.jads.sentinel.models.Situation;
 import com.jads.sentinel.models.Question;
@@ -39,18 +40,18 @@ public class ReportServiceImpl implements ReportService {
 
 	@Autowired
 	private SituationReposiroty situationReposiroty;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
 
 	@Autowired
 	private QuestionRepository questionRepository;
-	
-	Set<String> allCategoriesInDB = categoryRepository.getCategories();
 
-	Set<String> allQuestionsInDB = questionRepository.getQuestions();
+	Set<String> allCategoriesInDB = categoryRepository.getCategoriesId();
 
-	
+	Set<String> allQuestionsInDB = questionRepository.getQuestionsId();
+
+
 	@Override
 	@Transactional
 	public Long saveReports(List<ReportRequest> request, String userId) {
@@ -107,30 +108,19 @@ public class ReportServiceImpl implements ReportService {
 
 		Set<String> categorySet = null;
 		Set<String> questionSet = null;
-		
+
 		for(Situation situation : request.getSituations()) {
 
-			for(Category c : situation.getCategories()) {
-				//Setta tutte macrocategorie (housing, health, payment, employer, labor) che trovi in quella situation
-				categorySet.add(c.getId());	
+			for	(Issue issue : situation.getIssues()) {
 				
-				for(Question q : c.getQuestions()) {
-					situationReposiroty.saveSituation(savedSignal.getId(), situation.getId());
+				//Setta tutte categorie (housing, health, payment, employer, labor) che trovi in quella situation
+				categorySet.add(issue.getCategory().getId());	
 
-					/* Setta le questions relative a quella situation, che è come dire
-
-						boolean householdsExceeded = true;
-						boolean paymentExceeded = true;
-						boolean noContract = true;
-						boolean noVacation = true;
-						boolean workingHoursExceeded = true;
-					 */
-					
-					questionSet.add(q.getId());
-
-				}
-
+				//Setta tutte questions relative alle categorie (housing, health, payment, employer, labor) che trovi in quella situation
+				questionSet.add(issue.getQuestion().getId());
 			}
+	
+			situationReposiroty.saveSituation(savedSignal.getId(), situation.getId());
 
 		}
 
@@ -155,7 +145,7 @@ public class ReportServiceImpl implements ReportService {
 			my_log.logger.info("situation(long idReport, long idAddress, String City, String Province, boolean housingExpl, boolean healthExpl, "
 					+ "boolean paymentExpl, boolean laborExpl, boolean employerExpl, boolean householdsExceeded, boolean workingHoursExceeded, "
 					+ "boolean pteamsaymentExceeded, boolean noContract, boolean noVacation)");
-			
+
 			my_log.logger.info("reported(" + savedSignal.getId() + ", " + 
 					savedSignal.getAddress().getId() + ", " +
 					savedSignal.getAddress().getCity() + ", " +
@@ -174,7 +164,7 @@ public class ReportServiceImpl implements ReportService {
 	Limitante da un lato perchè devo sapere dove è posizionata quella determinata stringa, ogni volta che volendo si aggiunge una category
 	o una question, tutto deve essere spostato nelle formule di MonPoly. Ma in realtà ogni volta che ho una nuova carateristica devo
 	aggiornare la traduzione delle policy...
-	*/
+	 */
 	private String saveCategories(Set<String> categorySet) {
 		String categories = "";
 		for(String c : allCategoriesInDB) {

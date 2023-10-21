@@ -4,10 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,13 +23,8 @@ public class Category {
 	@Id
 	private String id;
 	
-	@ManyToMany
-	@JoinTable(name = "category_has_question", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
-	private Set<Question> questions;
-		
-	@ManyToOne
-	@JoinColumn(name = "situation_id", nullable = false)
+	@OneToMany(mappedBy = "issue")
 	@JsonIgnore
-	private Situation situation;
+	private Set<Issue> issues;
 }
 

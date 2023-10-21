@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.jads.sentinel.models.Report;
-import com.jads.sentinel.models.Category;
+import com.jads.sentinel.models.Issue;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +20,5 @@ import lombok.Setter;
 public class SituationRequest {
 
 	private List<Report> signals;
-	private Set<Category> categories;
-
+	private Set<Issue> issues;
 }

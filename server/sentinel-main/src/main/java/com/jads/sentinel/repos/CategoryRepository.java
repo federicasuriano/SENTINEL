@@ -9,6 +9,6 @@ import com.jads.sentinel.models.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-	@Query(value = "select id from Category", nativeQuery = true) Set<String> getCategories();
+	@Query(value = "select id from Category", nativeQuery = true) Set<String> getCategoriesId();
 	
 }
