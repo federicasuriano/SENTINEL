@@ -1,9 +1,6 @@
 package com.jads.sentinel.dto;
 
-import java.util.Set;
-
 import com.jads.sentinel.models.Address;
-import com.jads.sentinel.models.Situation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,9 +26,6 @@ public class ReportRequest {
 	
 	private Address address;
 
-	private Set<Situation> situations;
-	
-	/*
 	private String q_ho_1;
 	private String q_ho_2;
 	private String q_ho_3;
@@ -116,7 +110,5 @@ public class ReportRequest {
 	private String q_la_16;
 	private String q_la_17;
 	private String q_la_18;
-	
-	*/
 
 }

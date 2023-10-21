@@ -3,7 +3,6 @@ package com.jads.sentinel.services;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 
 import javax.transaction.Transactional;
@@ -14,16 +13,10 @@ import org.springframework.stereotype.Service;
 import com.jads.sentinel.dto.ReportRequest;
 import com.jads.sentinel.logging.Log;
 import com.jads.sentinel.models.Address;
-import com.jads.sentinel.models.Category;
 import com.jads.sentinel.models.Report;
-import com.jads.sentinel.models.Situation;
-import com.jads.sentinel.models.Question;
-
 import com.jads.sentinel.repos.AddressReposiroty;
 import com.jads.sentinel.repos.ReportReposiroty;
 import com.jads.sentinel.repos.SituationReposiroty;
-import com.jads.sentinel.repos.CategoryRepository;
-import com.jads.sentinel.repos.QuestionRepository;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -39,18 +32,7 @@ public class ReportServiceImpl implements ReportService {
 
 	@Autowired
 	private SituationReposiroty situationReposiroty;
-	
-	@Autowired
-	private CategoryRepository categoryRepository;
 
-	@Autowired
-	private QuestionRepository questionRepository;
-	
-	Set<String> allCategoriesInDB = categoryRepository.getCategories();
-
-	Set<String> allQuestionsInDB = questionRepository.getQuestions();
-
-	
 	@Override
 	@Transactional
 	public Long saveReports(List<ReportRequest> request, String userId) {
@@ -63,7 +45,7 @@ public class ReportServiceImpl implements ReportService {
 			Address savedAddress = this.addressService.getAddress(reportRequest.getAddress());
 
 			if (savedAddress == null) {
-
+				
 				savedAddress = addressReposiroty.save(reportRequest.getAddress());
 			}
 
@@ -76,7 +58,7 @@ public class ReportServiceImpl implements ReportService {
 			} else {
 
 				saveReport(userId, sqlTimestamp, reportRequest, savedAddress);
-
+						
 			}
 		}
 
@@ -100,105 +82,449 @@ public class ReportServiceImpl implements ReportService {
 
 		Report savedSignal = reportReposiroty.save(report);
 
+		
+		//LOG FILE: reported(idReport), reportedInCity(idReport, City), located(idReport, idAddress)
+		saveLogReport(savedSignal);
+
 		saveSituations(reportRequest, savedSignal);
 	}
 
 	private void saveSituations(ReportRequest request, Report savedSignal) {
 
-		Set<String> categorySet = null;
-		Set<String> questionSet = null;
+		boolean housing = false;
+		boolean health = false;
+		boolean payment = false;
+		boolean employer = false;
+		boolean labor = false;
 		
-		for(Situation situation : request.getSituations()) {
-
-			for(Category c : situation.getCategories()) {
-				//Setta tutte macrocategorie (housing, health, payment, employer, labor) che trovi in quella situation
-				categorySet.add(c.getId());	
-				
-				for(Question q : c.getQuestions()) {
-					situationReposiroty.saveSituation(savedSignal.getId(), situation.getId());
-
-					/* Setta le questions relative a quella situation, che è come dire
-
-						boolean householdsExceeded = true;
-						boolean paymentExceeded = true;
-						boolean noContract = true;
-						boolean noVacation = true;
-						boolean workingHoursExceeded = true;
-					 */
-					
-					questionSet.add(q.getId());
-
-				}
-
-			}
-
+		boolean householdsExceeded = false;
+		boolean paymentExceeded = false;
+		boolean noContract = false;
+		boolean noVacation = false;
+		boolean workingHoursExceeded = false;	
+		
+		
+		// housing
+		if (request.getQ_ho_1() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_1());
+			housing = true;
+					}
+		if (request.getQ_ho_2() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_2());
+			housing = true;
+		}
+		if (request.getQ_ho_3() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_3());
+			housing = true;
+		}
+		if (request.getQ_ho_4() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_4());
+			housing = true;
+		}
+		if (request.getQ_ho_5() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_5());
+			housing = true;
+		}
+		if (request.getQ_ho_6() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_6());
+			housing = true;
+		}
+		if (request.getQ_ho_7() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_7());
+			housing = true;
+		}
+		if (request.getQ_ho_8() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_8());
+			housing = true;
+		}
+		if (request.getQ_ho_9() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_9());
+			housing = true;
+		}
+		if (request.getQ_ho_10() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_10());
+			housing = true;
+		}
+		if (request.getQ_ho_11() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_11());
+			housing = true;
+		}
+		if (request.getQ_ho_12() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_12());
+			housing = true;
+		}
+		if (request.getQ_ho_13() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_13());
+			housing = true;
+		}
+		if (request.getQ_ho_14() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_ho_14());
+			housing = true;
+			householdsExceeded = true;
 		}
 
-		//LOG FILE (una linea per ogni situazione, NB: un report può avere più di una situazione)
-		for(Situation situation : request.getSituations()) {
-			saveLog(savedSignal, situation, categorySet, questionSet);
+		// health
+		if (request.getQ_he_1() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_he_1());
+			health = true;
 		}
+		if (request.getQ_he_2() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_he_2()); 
+			health = true;
+		}
+		if (request.getQ_he_3() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_he_3()); 
+			health = true;
+		}
+		if (request.getQ_he_4() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_he_4()); 
+			health = true;
+		}
+		if (request.getQ_he_5() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_he_5()); 
+			health = true;
+		}
+		if (request.getQ_he_6() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_he_6()); 
+			health = true;
+		}
+		if (request.getQ_he_7() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_he_7()); 
+			health = true;
+		}
+		if (request.getQ_he_8() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_he_8()); 
+			health = true;
+		}
+
+		// payment
+		if (request.getQ_pa_1() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_1()); 
+			payment = true;
+			paymentExceeded = true;
+		}
+		if (request.getQ_pa_2() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_2()); 
+			payment = true;
+		}
+		if (request.getQ_pa_3() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_3()); 
+			payment = true;
+			noContract = true;
+		}
+		if (request.getQ_pa_4() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_4()); 
+			payment = true;
+		}
+		if (request.getQ_pa_5() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_5()); 
+			payment = true;
+			noVacation = true;
+		}
+		if (request.getQ_pa_6() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_6()); 
+			payment = true;
+		}
+		if (request.getQ_pa_7() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_7()); 
+			payment = true;
+		}
+		if (request.getQ_pa_8() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_8()); 
+			payment = true;
+		}
+		if (request.getQ_pa_9() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_9()); 
+			payment = true;
+		}
+		if (request.getQ_pa_10() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_10()); 
+			payment = true;
+		}
+		if (request.getQ_pa_11() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_11()); 
+			payment = true;
+		}
+		if (request.getQ_pa_12() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_12()); 
+			payment = true;
+		}
+		if (request.getQ_pa_13() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_13()); 
+			payment = true;
+		}
+		if (request.getQ_pa_14() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_14()); 
+			payment = true;
+		}
+		if (request.getQ_pa_15() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_pa_15()); 
+			payment = true;
+		}
+
+		// employer
+		if (request.getQ_em_1() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_1()); 
+			employer = true;
+			noContract = true;
+		}
+		if (request.getQ_em_2() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_2()); 
+			employer = true;
+		}
+		if (request.getQ_em_3() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_3()); 
+			employer = true;
+			noVacation = true;
+		}
+		if (request.getQ_em_4() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_4()); 
+			employer = true;
+		}
+		if (request.getQ_em_5() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_5()); 
+			employer = true;
+		}
+		if (request.getQ_em_6() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_6()); 
+			employer = true;
+		}
+		if (request.getQ_em_7() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_7()); 
+			employer = true;
+		}
+		if (request.getQ_em_8() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_8()); 
+			employer = true;
+		}
+		if (request.getQ_em_9() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_9()); 
+			employer = true;
+		}
+		if (request.getQ_em_10() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_10()); 
+			employer = true;
+		}
+		if (request.getQ_em_11() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_11()); 
+			employer = true;
+		}
+		if (request.getQ_em_12() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_12()); 
+			employer = true;
+		}
+		if (request.getQ_em_13() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_13()); 
+			employer = true;
+		}
+		if (request.getQ_em_14() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_14()); 
+			employer = true;
+		}
+		if (request.getQ_em_15() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_15()); 
+			employer = true;
+		}
+		if (request.getQ_em_16() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_16()); 
+			employer = true;
+		}
+		if (request.getQ_em_17() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_17()); 
+			employer = true;
+		}
+		if (request.getQ_em_18() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_18()); 
+			employer = true;
+		}
+		if (request.getQ_em_19() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_19()); 
+			employer = true;
+		}
+		if (request.getQ_em_20() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_20()); 
+			employer = true;
+		}
+		if (request.getQ_em_21() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_21()); 
+			employer = true;
+		}
+		if (request.getQ_em_22() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_22()); 
+			employer = true;
+		}
+		if (request.getQ_em_23() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_23()); 
+			employer = true;
+		}
+		if (request.getQ_em_24() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_24()); 
+			employer = true;
+		}
+		if (request.getQ_em_25() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_em_25()); 
+			employer = true;
+		}
+
+		// labor
+		if (request.getQ_la_1() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_1()); 
+			labor = true;
+		}
+		if (request.getQ_la_2() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_2()); 
+			labor = true;
+		}
+		if (request.getQ_la_3() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_3()); 
+			labor = true;
+			workingHoursExceeded = true;
+		}
+		if (request.getQ_la_4() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_4()); 
+			labor = true;
+			noContract = true;
+		}
+		if (request.getQ_la_5() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_5()); 
+			labor = true;
+		}
+		if (request.getQ_la_6() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_6()); 
+			labor = true;
+		}
+		if (request.getQ_la_7() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_7()); 
+			labor = true;
+		}
+		if (request.getQ_la_8() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_8()); 
+			labor = true;
+		}
+		if (request.getQ_la_9() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_9()); 
+			labor = true;
+		}
+		if (request.getQ_la_10() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_10()); 
+			labor = true;
+		}
+		if (request.getQ_la_11() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_11()); 
+			labor = true;
+		}
+		if (request.getQ_la_12() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_12()); 
+			labor = true;
+		}
+		if (request.getQ_la_13() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_13()); 
+			labor = true;
+		}
+		if (request.getQ_la_14() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_14()); 
+			labor = true;
+		}
+		if (request.getQ_la_15() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_15()); 
+			labor = true;
+		}
+		if (request.getQ_la_16() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_16()); 
+			labor = true;
+		}
+		if (request.getQ_la_17() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_17()); 
+			labor = true;
+		}
+		if (request.getQ_la_18() != null) {
+			situationReposiroty.saveSituation(savedSignal.getId(), request.getQ_la_18()); 
+			labor = true;
+		}
+		
+		
+		//LOG FILE: housingExpl(idReport), healthExpl(idReport), paymentExpl(idReport), laborExpl(idReport), employerExpl(idReport) and all subtypes
+		saveLogSituations(request, savedSignal, housing, health, labor, employer, payment, householdsExceeded, workingHoursExceeded, paymentExceeded, noContract, noVacation);
+
 	}
-
-
-
-	//LOG FILE
-	private void saveLog(Report savedSignal, Situation situation, Set<String> categorySet, Set<String> questionSet) {
-
+	
+	
+	//LOG FILE: reported(idReport), reportedInCity(idReport, City), located(idReport, idAddress)
+	private void saveLogReport(Report savedSignal) {
+		
 		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tQ %5$s %n");
-
+		
 		try {
 			Log my_log = new Log("log.txt");
-
+			
 			my_log.logger.setLevel(Level.INFO);
 
-			my_log.logger.info("situation(long idReport, long idAddress, String City, String Province, boolean housingExpl, boolean healthExpl, "
-					+ "boolean paymentExpl, boolean laborExpl, boolean employerExpl, boolean householdsExceeded, boolean workingHoursExceeded, "
-					+ "boolean pteamsaymentExceeded, boolean noContract, boolean noVacation)");
-			
-			my_log.logger.info("reported(" + savedSignal.getId() + ", " + 
-					savedSignal.getAddress().getId() + ", " +
-					savedSignal.getAddress().getCity() + ", " +
-					savedSignal.getAddress().getProvince() + ", " +
-					saveCategories(categorySet) + 
-					saveQuestions(questionSet) +				
-					")");
+			my_log.logger.info("reported(" + savedSignal.getId() + ")");
 
+			my_log.logger.info("reportedInCity("+savedSignal.getId() +", "+ savedSignal.getAddress().getCity() + ")");
+			
+			my_log.logger.info("located("+savedSignal.getId() +", "+ savedSignal.getAddress().getId() + ")");		
+			
 		} catch (Exception e) {}
 
 	}
+	
+	
+	//LOG FILE: housingExpl(idReport), healthExpl(idReport), paymentExpl(idReport), laborExpl(idReport), employerExpl(idReport) and all subtypes
+	private void saveLogSituations(ReportRequest request, Report savedSignal, boolean housing, boolean health, boolean labor, boolean employer, boolean payment, 
+			boolean householdsExceeded, boolean workingHoursExceeded, boolean paymentExceeded, boolean noContract, boolean noVacation) {
 
-	/*
-	Devo creare un metodo che prende tutte le categorie esistenti, se sono in situation stampa 1, altrimenti 0 e in un ordine ben preciso
-	perchè altrimenti non funzioa con MonPoly
-	Limitante da un lato perchè devo sapere dove è posizionata quella determinata stringa, ogni volta che volendo si aggiunge una category
-	o una question, tutto deve essere spostato nelle formule di MonPoly. Ma in realtà ogni volta che ho una nuova carateristica devo
-	aggiornare la traduzione delle policy...
-	*/
-	private String saveCategories(Set<String> categorySet) {
-		String categories = "";
-		for(String c : allCategoriesInDB) {
-			boolean contains = categorySet.contains(c);
-			if(contains) {
-				int val = contains ? 1 : 0;
-				categories = categories + Integer.toString(val) + ", ";
+		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tQ %5$s %n");
+		
+		try {
+			Log my_log = new Log("log.txt");
+			
+			my_log.logger.setLevel(Level.INFO);
+
+			if(housing) {
+				my_log.logger.info("housingExpl(" + savedSignal.getId() + ")");
+				
+				if(householdsExceeded) {
+					my_log.logger.info("householdsExceeded(" + savedSignal.getId() + ")");
+				}
 			}
-		}
-		return categories;
-	}
-
-	private String saveQuestions(Set<String> questionSet) {
-		String questions = "";
-		for(String q : allQuestionsInDB) {
-			boolean contains = questionSet.contains(q);
-			if(contains) {
-				int val = contains ? 1 : 0;
-				questions = questions + Integer.toString(val) + ", ";
+			
+			if(health) {
+				my_log.logger.info("healthExpl(" + savedSignal.getId() + ")");	
 			}
-		}
-		return questions.substring(0, questions.length()-2);
-	}
+			
+			if(payment) {
+				my_log.logger.info("paymentExpl(" + savedSignal.getId() + ")");
+			
+				if(paymentExceeded) {
+					my_log.logger.info("paymentExceeded(" + savedSignal.getId() + ")");
+				}
+			}
+			
+			if(labor) {
+				my_log.logger.info("laborExpl(" + savedSignal.getId() + ")");
+				
+				if(workingHoursExceeded) {
+					my_log.logger.info("workingHoursExceeded(" + savedSignal.getId() + ")");
+				}
+			}
+			
+			if(employer) {
+				my_log.logger.info("employerExpl(" + savedSignal.getId() + ")");
+				
+			}
+			
+			if((payment || employer || labor) && noContract) {
+				my_log.logger.info("noContract(" + savedSignal.getId() + ")");	
+			}
+			
+			if((payment || employer) && noVacation) {
+				my_log.logger.info("noVacation(" + savedSignal.getId() + ")");	
+			}
+			
+		} catch (Exception e) {}
+	
+	}	
 
-
-
+	
 }
