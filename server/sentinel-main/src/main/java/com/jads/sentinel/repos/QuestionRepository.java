@@ -9,6 +9,6 @@ import com.jads.sentinel.models.Question;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-	@Query(value = "select question_id from Question", nativeQuery = true) Set<String> getQuestions();
+	@Query(value = "select id from Question", nativeQuery = true) Set<String> getQuestions();
 	
 }

@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `sentinel` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `sentinel`;
 -- MySQL dump 10.13  Distrib 8.0.31, for macos12 (x86_64)
 --
 -- Host: ls-62eb40477453b6df6f08c878e98d46dad1e8d817.cqzbzeeivowe.eu-central-1.rds.amazonaws.com    Database: sentinel
@@ -207,4 +209,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-09 16:40:42
+-- Dump completed on 2023-10-10 18:42:03
