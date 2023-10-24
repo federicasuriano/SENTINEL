@@ -1,5 +1,6 @@
 package com.jads.sentinel.repos;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,6 @@ import com.jads.sentinel.models.Question;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-	@Query(value = "select id from Question", nativeQuery = true) Set<String> getQuestionsId();
+	@Query(value = "select * from question", nativeQuery = true) List<Question> getQuestions();
 	
 }

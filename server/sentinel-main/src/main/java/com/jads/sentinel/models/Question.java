@@ -23,7 +23,7 @@ public class Question {
 	@Id
 	private String id;
 	
-	@OneToMany(mappedBy = "issue")
+	@OneToMany(mappedBy = "question")
 	@JsonIgnore
 	private Set<Issue> issues;
 	

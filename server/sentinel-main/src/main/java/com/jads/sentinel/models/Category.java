@@ -23,7 +23,7 @@ public class Category {
 	@Id
 	private String id;
 	
-	@OneToMany(mappedBy = "issue")
+	@OneToMany(mappedBy = "category")
 	@JsonIgnore
 	private Set<Issue> issues;
 }

@@ -7,13 +7,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.jads.sentinel.models.Situation;
+import com.jads.sentinel.models.Issue;
 
-public interface IssueRepository extends JpaRepository<Situation, Long> {
+public interface IssueRepository extends JpaRepository<Issue, Long> {
 
 	@Modifying
 	@Query(value = "insert into situation_has_issue (situation_id, issue_id) values (:situationId, :issueId)", nativeQuery = true)
 	@Transactional
-	void saveSituation(@Param("situationId") int situationId, @Param("issueId") int issueId);
+	void saveSituation(@Param("situationId") Long situationId, @Param("issueId") Long issueId);
 	
 }
+

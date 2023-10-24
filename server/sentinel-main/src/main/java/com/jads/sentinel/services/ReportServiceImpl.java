@@ -24,6 +24,7 @@ import com.jads.sentinel.repos.AddressReposiroty;
 import com.jads.sentinel.repos.ReportReposiroty;
 import com.jads.sentinel.repos.SituationReposiroty;
 import com.jads.sentinel.repos.CategoryRepository;
+import com.jads.sentinel.repos.IssueRepository;
 import com.jads.sentinel.repos.QuestionRepository;
 
 @Service
@@ -42,15 +43,22 @@ public class ReportServiceImpl implements ReportService {
 	private SituationReposiroty situationReposiroty;
 
 	@Autowired
+	private IssueRepository issueRepository;
+	
+	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private CategoryService categoryService;
 
 	@Autowired
 	private QuestionRepository questionRepository;
-
-	Set<String> allCategoriesInDB = categoryRepository.getCategoriesId();
-
-	Set<String> allQuestionsInDB = questionRepository.getQuestionsId();
-
+	
+	@Autowired
+	private QuestionService questionService;
+	
+	//List<Category> allCategoriesInDB = this.categoryService.getCategories(); //this.categoryRepository.getCategoriesId();
+	//List<Question> allQuestionsInDB = this.questionService.getQuestions(); //this.questionRepository.getQuestionsId();
 
 	@Override
 	@Transactional
@@ -118,10 +126,13 @@ public class ReportServiceImpl implements ReportService {
 
 				//Setta tutte questions relative alle categorie (housing, health, payment, employer, labor) che trovi in quella situation
 				questionSet.add(issue.getQuestion().getId());
+				
+				Issue savedIssue = issueRepository.save(issue);
+
 			}
 	
 			situationReposiroty.saveSituation(savedSignal.getId(), situation.getId());
-
+		
 		}
 
 		//LOG FILE (una linea per ogni situazione, NB: un report può avere più di una situazione)
@@ -150,8 +161,8 @@ public class ReportServiceImpl implements ReportService {
 					savedSignal.getAddress().getId() + ", " +
 					savedSignal.getAddress().getCity() + ", " +
 					savedSignal.getAddress().getProvince() + ", " +
-					saveCategories(categorySet) + 
-					saveQuestions(questionSet) +				
+				//	saveCategories(categorySet) + 
+				//	saveQuestions(questionSet) +				
 					")");
 
 		} catch (Exception e) {}
@@ -165,6 +176,7 @@ public class ReportServiceImpl implements ReportService {
 	o una question, tutto deve essere spostato nelle formule di MonPoly. Ma in realtà ogni volta che ho una nuova carateristica devo
 	aggiornare la traduzione delle policy...
 	 */
+	/*
 	private String saveCategories(Set<String> categorySet) {
 		String categories = "";
 		for(String c : allCategoriesInDB) {
@@ -189,6 +201,6 @@ public class ReportServiceImpl implements ReportService {
 		return questions.substring(0, questions.length()-2);
 	}
 
-
+*/
 
 }

@@ -5,9 +5,9 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\classes",
-    "\\src\\assets",
-    "\\src\\environments"
+    "\\src\\app\\components",
+    "\\src\\app\\components\\stepper"
   ],
-  "SelectedNode": "\\.angular",
+  "SelectedNode": "\\src\\app\\classes\\Issue.ts",
   "PreviewInSolutionExplorer": false
 }
