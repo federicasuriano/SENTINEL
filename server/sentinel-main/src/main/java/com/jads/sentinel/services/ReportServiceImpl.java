@@ -82,10 +82,6 @@ public class ReportServiceImpl implements ReportService {
 
 		Report savedSignal = reportReposiroty.save(report);
 
-		
-		//LOG FILE: reported(idReport), reportedInCity(idReport, City), located(idReport, idAddress)
-		saveLogReport(savedSignal);
-
 		saveSituations(reportRequest, savedSignal);
 	}
 
@@ -444,34 +440,13 @@ public class ReportServiceImpl implements ReportService {
 		
 		
 		//LOG FILE: housingExpl(idReport), healthExpl(idReport), paymentExpl(idReport), laborExpl(idReport), employerExpl(idReport) and all subtypes
-		saveLogSituations(request, savedSignal, housing, health, labor, employer, payment, householdsExceeded, workingHoursExceeded, paymentExceeded, noContract, noVacation);
+		saveLogSituation(request, savedSignal, housing, health, labor, employer, payment, householdsExceeded, workingHoursExceeded, paymentExceeded, noContract, noVacation);
 
 	}
 	
-	
-	//LOG FILE: reported(idReport), reportedInCity(idReport, City), located(idReport, idAddress)
-	private void saveLogReport(Report savedSignal) {
-		
-		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tQ %5$s %n");
-		
-		try {
-			Log my_log = new Log("log.txt");
-			
-			my_log.logger.setLevel(Level.INFO);
 
-			my_log.logger.info("reported(" + savedSignal.getId() + ")");
-
-			my_log.logger.info("reportedInCity("+savedSignal.getId() +", "+ savedSignal.getAddress().getCity() + ")");
-			
-			my_log.logger.info("located("+savedSignal.getId() +", "+ savedSignal.getAddress().getId() + ")");		
-			
-		} catch (Exception e) {}
-
-	}
-	
-	
 	//LOG FILE: housingExpl(idReport), healthExpl(idReport), paymentExpl(idReport), laborExpl(idReport), employerExpl(idReport) and all subtypes
-	private void saveLogSituations(ReportRequest request, Report savedSignal, boolean housing, boolean health, boolean labor, boolean employer, boolean payment, 
+	private void saveLogSituation(ReportRequest request, Report savedSignal, boolean housing, boolean health, boolean labor, boolean employer, boolean payment, 
 			boolean householdsExceeded, boolean workingHoursExceeded, boolean paymentExceeded, boolean noContract, boolean noVacation) {
 
 		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tQ %5$s %n");
@@ -480,49 +455,23 @@ public class ReportServiceImpl implements ReportService {
 			Log my_log = new Log("log.txt");
 			
 			my_log.logger.setLevel(Level.INFO);
+			/*
+			my_log.logger.info("situation(long idReport, long idAddress, String City, String Province, boolean housingExpl, boolean healthExpl, "
+					+ "boolean paymentExpl, boolean laborExpl, boolean employerExpl, boolean householdsExceeded, boolean workingHoursExceeded, "
+					+ "boolean pteamsaymentExceeded, boolean noContract, boolean noVacation)");
+			*/
+			my_log.logger.info("situation(" + savedSignal.getId() + ", " + 
+					savedSignal.getAddress().getId() + ", " +
+					savedSignal.getAddress().getCity() + ", " +
+					savedSignal.getAddress().getProvince() + ", " +
+					//save categories 
+					housing + ", " + health + ", " + labor + ", " + employer + ", " + payment + ", " +
+					//save questions	
+					householdsExceeded + ", " + workingHoursExceeded + ", " + paymentExceeded + ", " + noContract + ", " + noVacation +
+					")");
 
-			if(housing) {
-				my_log.logger.info("housingExpl(" + savedSignal.getId() + ")");
-				
-				if(householdsExceeded) {
-					my_log.logger.info("householdsExceeded(" + savedSignal.getId() + ")");
-				}
-			}
-			
-			if(health) {
-				my_log.logger.info("healthExpl(" + savedSignal.getId() + ")");	
-			}
-			
-			if(payment) {
-				my_log.logger.info("paymentExpl(" + savedSignal.getId() + ")");
-			
-				if(paymentExceeded) {
-					my_log.logger.info("paymentExceeded(" + savedSignal.getId() + ")");
-				}
-			}
-			
-			if(labor) {
-				my_log.logger.info("laborExpl(" + savedSignal.getId() + ")");
-				
-				if(workingHoursExceeded) {
-					my_log.logger.info("workingHoursExceeded(" + savedSignal.getId() + ")");
-				}
-			}
-			
-			if(employer) {
-				my_log.logger.info("employerExpl(" + savedSignal.getId() + ")");
-				
-			}
-			
-			if((payment || employer || labor) && noContract) {
-				my_log.logger.info("noContract(" + savedSignal.getId() + ")");	
-			}
-			
-			if((payment || employer) && noVacation) {
-				my_log.logger.info("noVacation(" + savedSignal.getId() + ")");	
-			}
-			
 		} catch (Exception e) {}
+	
 	
 	}	
 
