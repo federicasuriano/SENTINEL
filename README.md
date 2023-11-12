@@ -2,7 +2,7 @@
 
 
 Execute Keycloack: 
-standalone.bat in C:\Users\Utente\Desktop\PoliMi\Biennio\Tesi\SENTINEL\SENTINEL\server\sentinel-keycloak-master\bin
+standalone.bat in sentinel-keycloak-master\bin
 
 Run front-end: 
 cd sentinel-frontend-master
