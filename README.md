@@ -5,15 +5,11 @@ Execute Keycloack:
 standalone.bat in C:\Users\Utente\Desktop\PoliMi\Biennio\Tesi\SENTINEL\SENTINEL\server\sentinel-keycloak-master\bin
 
 Run front-end: 
-cd C:\Users\Utente\Desktop\PoliMi\Biennio\Tesi\SENTINEL\SENTINEL\client\sentinel-frontend-master
+cd sentinel-frontend-master
 ng serve --o
 
-Access credentials:
-f.pecorelli@jads.nl
-12345678
-
 Run back-end:
-cd C:\Users\Utente\Desktop\PoliMi\Biennio\Tesi\SENTINEL\SENTINEL\server\sentinel-main
+cd sentinel-main
 mvn spring-boot:run
 
 Address example:
